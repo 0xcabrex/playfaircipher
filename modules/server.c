@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])
+void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//Does the cipher using 3 rules
 {
 	//printf("%s\n", plain_text);
 	int i, j, r1=0, r2=0, c1=0, c2=0;

@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
 	char ciphered_text[100];
 
 	
-	printf("Key Matrix\n");
+	printf("Key Matrix\n");							//outputs the key matrix, in the form of a matrix
 
 	for (int i=0; i<5; i++)
 	{
@@ -23,9 +23,9 @@ int main(int argc, char const *argv[])
 
 	printf("Enter plain Text: \n");
 	scanf("%[^\n]s", plain_text);
-	inducer(plain_text);
+	inducer(plain_text);							// Does the appropriate conversions of the cipher
 	printf("Plain Text: ");
-	for (int k=0; k<strlen(plain_text); k++)
+	for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
 	{
 		if (k%2 == 1)
 			printf("%c ", plain_text[k]);
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
 	}
 	printf("\n");
 
-	worker(plain_text, key_matrix, ciphered_text);
+	worker(plain_text, key_matrix, ciphered_text);	// Calls the cipher function and does the cipher
 
 	printf("ciphered text: %s\n", ciphered_text);
 
