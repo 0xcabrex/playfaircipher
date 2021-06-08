@@ -25,4 +25,21 @@ Note: I/J will not be in the same matrix together, if 'I' is there in the key, '
 
 	- Rule 3: Neither the row or the column are same , interchange the columns.
 		l1 = [r0,c0] => c1 = [r0,c1]
-		l2 = [r1,c1] => c2 = [r1,c0]		
+		l2 = [r1,c1] => c2 = [r1,c0]
+
+
+## Compiling the program
+
+The program can be compiled using the makefile as
+```bash
+make -f makefile.mk
+```
+
+Or you can also do it manually:
+```bash
+gcc -c client.c
+gcc -c modules/server.c
+
+gcc client.o server.o header.h -o mainfile
+
+```
