@@ -185,6 +185,38 @@ void key_matrix_maker(char key[100], char key_matrix[5][5])
 {
 
 	//=======================================================================
+	//	This code snippet removes j if i is already present in the key string
+
+	int found_i=0, found_j=0;
+	char temp[100]="";
+
+	for(int i=0; i<strlen(key); i++)
+	{
+		if (key[i] == 'i')
+			found_i++;
+		else if (key[i] == 'j')
+			found_j++;
+	}
+
+	if (found_j > 0 && found_i > 0)
+	{
+		for (int i=0; i<strlen(key); i++)
+		{
+			if (key[i] != 'j')
+			{
+				//printf("%c", key[i]);
+				strncat(temp, &key[i], 1);
+			}
+		}
+	}
+	else
+	{
+		strcpy(temp, key);
+	}
+
+	strcpy(key, temp);
+
+	//=======================================================================
 	//	Removes spaces from the key
 
 	int i1=0, j1=0;
@@ -199,31 +231,42 @@ void key_matrix_maker(char key[100], char key_matrix[5][5])
     //=======================================================================
 
 
-	char alpha[100] = "abcdefghiklmnopqrstuvwxyz";
-    char temp[100];
+	char alpha[100];
+	char set1[100]= "abcdefghklmnopqrstuvwxyz", set2[100]="abcdefghiklmnopqrstuvwxyz";
+
+	if (found_j>0 && found_i==0)
+		strcpy(alpha, set1);
+	else
+		strcpy(alpha, set2);
 
     strcat(key, alpha);
 
     //=======================================================================
-    //	this code snippet removes repeating characters, and appeds to 1d array
+    //	this code snippet removes repeating characters, and appends to 1d array
+    //	While loop is used here because if the characters repeat more than once,
+    //	the loop tends to omit it.
 
-    int i,j,k;
+    int i,j,k,size=0;
     
-    for(i = 0; i < strlen(key); i++)
+    while(size!=25)
     {
-        for(j = i + 1; key[j] != '\0'; j++)
+        for(i = 0; i < strlen(key); i++)
         {
-            if(key[j] == key[i])  
+            for(j = i + 1; key[j] != '\0'; j++)
             {
-            	//printf("%c\n", key[j]);
-                for(k = j; key[k] != '\0'; k++)
+                if(key[j] == key[i])  
                 {
-                    key[k] = key[k + 1];
-                    //printf("%d", k);
+                    for(k = j; key[k] != '\0'; k++)
+                    {
+                        key[k] = key[k + 1];
+                    }
                 }
             }
         }
+        size = strlen(key);
     }
+
+    //printf("%s\n", key);
 
     //=======================================================================
 
