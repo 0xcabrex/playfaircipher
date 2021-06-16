@@ -78,24 +78,26 @@ int main(int argc, char const *argv[])
 
 	printf("================Playfair cipher================\n");
 
-	char choice;
+	int choice;
 	printf("Choose an option: \n");
-	printf("a} Encryption\n");
-	printf("b} Decryption\n");
+	printf("1} Encryption\n");
+	printf("2} Decryption\n");
 	printf("=> ");
-	choice = getchar();
+	//choice = getchar();
+	scanf("%d", &choice);
 	//fflush(stdin);
 	int c;
 
 	while ( (c = getchar()) != '\n' && c != EOF );
 
+
 	switch(choice)
 	{
-		case 'a':
+		case 1:
 			encrypt();
 			break;
 
-		case 'b':
+		case 2:
 			decrypt();
 			break;
 
