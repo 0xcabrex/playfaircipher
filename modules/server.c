@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//Does the cipher using 3 rules
 {
 	int i, j, r1=0, r2=0, c1=0, c2=0;
+
+	memset(ciphered_text, 0, 100);	//Clears the ciphered_text array, it fills up with characters in some systems.
 
 	//=======================================================================
 	//	outer loop:- Cycling through the variables in steps(letters) of 2.

@@ -15,7 +15,8 @@ void encrypt()
 	//=======================================================================
 
 	printf("Enter the key: ");
-	gets(key);
+	//gets(key);
+	scanf("%s", &key);
 
 	key_matrix_maker(key, key_matrix);				//Creates the matrix with the specified key
 
@@ -39,8 +40,7 @@ void encrypt()
 	//	Getting text to be encrypted
 
 	printf("Enter plain Text: ");
-	scanf("%[^\n]s", plain_text);
-	fflush(stdin);
+	scanf("%s", &plain_text);
 	
 	//=======================================================================
 
@@ -87,10 +87,6 @@ int main(int argc, char const *argv[])
 	scanf("%d", &choice);
 	//fflush(stdin);
 	int c;
-
-	#ifdef __linux__
-		while ( (c = getchar()) != '\n' && c != EOF );
-	#endif
 
 
 	switch(choice)
