@@ -88,7 +88,9 @@ int main(int argc, char const *argv[])
 	//fflush(stdin);
 	int c;
 
-	while ( (c = getchar()) != '\n' && c != EOF );
+	#ifdef __linux__
+		while ( (c = getchar()) != '\n' && c != EOF );
+	#endif
 
 
 	switch(choice)

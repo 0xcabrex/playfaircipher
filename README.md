@@ -23,7 +23,7 @@ Note: I/J will not be in the same matrix together, if 'I' is there in the key, '
 		l1 = [r0,c0] => c1 = [r0+1,c0]
 		l2 = [r1,c1] => c2 = [r1+1,c1]
 
-	- Rule 3: Neither the row or the column are same , interchange the columns.
+	- Rule 3: Neither the row or the column are different, interchange the columns.
 		l1 = [r0,c0] => c1 = [r0,c1]
 		l2 = [r1,c1] => c2 = [r1,c0]
 
