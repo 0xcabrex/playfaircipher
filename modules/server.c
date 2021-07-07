@@ -82,6 +82,8 @@ void inducer(char plain_text[])		// Does the job of converting the plaintext int
 	//=======================================================================
 	//	This snippet is responsible for removing all spaces from the plain text
 
+	printf("%s\n", plain_text);
+
 	int i1=0, j1=0;
 	while (plain_text[i1])
     {
