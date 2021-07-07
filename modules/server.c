@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//Does the cipher using 3 rules
 {
@@ -82,7 +83,10 @@ void inducer(char plain_text[])		// Does the job of converting the plaintext int
 	//=======================================================================
 	//	This snippet is responsible for removing all spaces from the plain text
 
-	printf("%s\n", plain_text);
+	//printf("%s\n", plain_text);
+
+	for (int i=0; i<strlen(plain_text); i++)
+		plain_text[i] = tolower(plain_text[i]);
 
 	int i1=0, j1=0;
 	while (plain_text[i1])
