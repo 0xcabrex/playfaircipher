@@ -88,8 +88,12 @@ int main(int argc, char const *argv[])
 	scanf("%d", &choice);
 
 	fflush(stdin);
-	int c;
-	while ( (c = getchar() ) != '\n');
+
+	char c;
+
+	#ifdef __linux__
+		while ( (c = getchar() ) != '\n');
+	#endif
 
 
 	switch(choice)
