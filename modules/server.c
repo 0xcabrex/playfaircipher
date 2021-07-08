@@ -80,13 +80,18 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//D
 
 void inducer(char plain_text[])		// Does the job of converting the plaintext into cipherable text by a set of rules.
 {
-	//=======================================================================
-	//	This snippet is responsible for removing all spaces from the plain text
 
-	//printf("%s\n", plain_text);
+	//=======================================================================
+	//	This snippet converts the contents of plain_text to lowercase
 
 	for (int i=0; i<strlen(plain_text); i++)
 		plain_text[i] = tolower(plain_text[i]);
+
+
+	//=======================================================================
+	//	This snippet is responsible for removing all spaces from the plain text
+
+	
 
 	int i1=0, j1=0;
 	while (plain_text[i1])
@@ -192,6 +197,11 @@ void inducer(char plain_text[])		// Does the job of converting the plaintext int
 
 void key_matrix_maker(char key[100], char key_matrix[5][5])
 {
+	//=======================================================================
+	//	This code snippet converts everything to lowercase
+
+	for (int i=0; i<strlen(key); i++)
+		key[i] = tolower(key[i]);
 
 	//=======================================================================
 	//	This code snippet removes j if i is already present in the key string

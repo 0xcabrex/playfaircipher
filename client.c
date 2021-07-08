@@ -16,6 +16,11 @@ void encrypt()
 
 	printf("Enter the key: ");
 	gets(key);
+	printf("%s\n", key);
+	//scanf("%[^\n]s", key);
+	// fflush(stdin);
+	// char c;
+	// while ( (c = getchar()) != '\n');
 	//fgets(key, 20, stdin);
 
 	key_matrix_maker(key, key_matrix);				//Creates the matrix with the specified key
@@ -108,10 +113,7 @@ int main(int argc, char const *argv[])
 
 		default:
 			printf("Please choose an appropriate option!\n");
-	}
-
-
-	
+	}	
 
 	return 0;
 }
