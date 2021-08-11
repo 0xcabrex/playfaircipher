@@ -77,6 +77,80 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//D
 }
 
 
+void upside_down_worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//unciphers using 3 rules
+{
+	int i, j, r1=0, r2=0, c1=0, c2=0;
+
+	memset(ciphered_text, 0, 100);	//Clears the ciphered_text array, it fills up with characters in some systems.
+
+	//=======================================================================
+	//	outer loop:- Cycling through the variables in steps(letters) of 2.
+
+	for (int k=0; k<strlen(plain_text);k+=2)
+	{
+		//=======================================================================
+		//	This loop takes in the coordinates of the 2 characters.
+
+		for (i=0; i<5; i++)
+		{
+			for (j=0; j<5; j++)
+			{
+				if (key_matrix[i][j] == plain_text[k])
+				{
+					r1=i;
+					c1=j;
+				}
+				if (key_matrix[i][j] == plain_text[k+1])
+				{
+					r2=i;
+					c2=j;
+				}
+			}
+		}
+
+		//=======================================================================
+
+
+		//=======================================================================
+		//	The 3 rules written here in "if" statements
+
+		if (r1==r2)
+		{
+			if(c2==4)
+			{
+				strncat(ciphered_text, &key_matrix[r1][c1-1], 1);
+				strncat(ciphered_text, &key_matrix[r2][4], 1);
+			}
+			else
+			{
+				strncat(ciphered_text, &key_matrix[r1][c1-1], 1);
+				strncat(ciphered_text, &key_matrix[r2][c2-1], 1);
+			}
+		}
+		if (c1==c2)
+		{
+			if (r2==4)
+			{
+				strncat(ciphered_text, &key_matrix[r1-1][c1], 1);
+				strncat(ciphered_text, &key_matrix[4][c2], 1);
+			}
+			else
+			{
+				strncat(ciphered_text, &key_matrix[r1-1][c1], 1);
+				strncat(ciphered_text, &key_matrix[r2-1][c2], 1);
+			}
+		}
+
+		if (r1 != r2 && c1 != c2)
+		{			
+			strncat(ciphered_text, &key_matrix[r1][c2], 1);
+			strncat(ciphered_text, &key_matrix[r2][c1], 1);
+		}
+		//=======================================================================
+	}
+}
+
+
 
 void inducer(char plain_text[])		// Does the job of converting the plaintext into cipherable text by a set of rules.
 {

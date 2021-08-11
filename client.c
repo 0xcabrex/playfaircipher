@@ -79,7 +79,77 @@ void encrypt()
 
 void decrypt()
 {
-	printf("Work under progress!\n");
+	//printf("Work under progress!\n");
+
+	//=======================================================================
+	//	Initializing variables
+
+	char key_matrix[5][5];
+	char plain_text[100];
+	char ciphered_text[100];
+	char key[20];
+
+	//=======================================================================
+
+	printf("Enter the key: ");
+	
+	scanf("%[^\n]s", key);
+	fflush(stdin);
+	
+	#ifdef __linux__
+		char c;
+		while ( (c = getchar()) != '\n');
+	#endif
+		
+	//fgets(key, 20, stdin);
+
+	key_matrix_maker(key, key_matrix);				//Creates the matrix with the specified key
+
+	//=======================================================================
+	//	Printing the Key matrix after forming them	
+	
+	printf("Key Matrix\n");
+
+	for (int i=0; i<5; i++)
+	{
+		for (int j=0; j<5; j++)
+		{
+			printf("%c  ", key_matrix[i][j]);
+		}
+		printf("\n");
+	}
+	
+	//=======================================================================
+
+	//=======================================================================
+	//	Getting text to be encrypted
+
+	printf("Enter cipher Text: ");
+	scanf("%[^\n]s", plain_text);
+	//fgets(plain_text, 100, stdin);
+	
+	//=======================================================================
+
+	inducer(plain_text);							// Does the appropriate conversions of the cipher
+
+	//=======================================================================
+	//	Outputting the plain text in the required manner
+
+	printf("Modified ciphered Text: ");
+	for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
+	{
+		if (k%2 == 1)
+			printf("%c ", plain_text[k]);
+		else
+			printf("%c", plain_text[k]);
+	}
+	printf("\n");
+
+	//=======================================================================
+
+	upside_down_worker(plain_text, key_matrix, ciphered_text);	// Calls the cipher function and does the cipher
+
+	printf("deciphered text: %s\n", ciphered_text);
 }
 
 
