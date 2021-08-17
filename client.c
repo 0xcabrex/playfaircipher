@@ -2,6 +2,8 @@
 #include<string.h>
 #include "header.h"
 
+int show_process;
+
 void encrypt()
 {
 	//=======================================================================
@@ -50,6 +52,7 @@ void encrypt()
 
 	printf("Enter plain Text: ");
 	scanf("%[^\n]s", plain_text);
+	fflush(stdin);
 	//fgets(plain_text, 100, stdin);
 	
 	//=======================================================================
@@ -71,7 +74,7 @@ void encrypt()
 
 	//=======================================================================
 
-	worker(plain_text, key_matrix, ciphered_text);	// Calls the cipher function and does the cipher
+	worker(plain_text, key_matrix, ciphered_text, show_process);	// Calls the cipher function and does the cipher
 
 	printf("ciphered text: %s\n", ciphered_text);
 }
@@ -126,6 +129,7 @@ void decrypt()
 
 	printf("Enter cipher Text: ");
 	scanf("%[^\n]s", plain_text);
+	fflush(stdin);
 	//fgets(plain_text, 100, stdin);
 	
 	//=======================================================================
@@ -147,7 +151,7 @@ void decrypt()
 
 	//=======================================================================
 
-	upside_down_worker(plain_text, key_matrix, ciphered_text);	// Calls the cipher function and does the cipher
+	upside_down_worker(plain_text, key_matrix, ciphered_text, show_process);	// Calls the cipher function and does the cipher
 
 	printf("deciphered text: %s\n", ciphered_text);
 }
@@ -162,32 +166,66 @@ int main(int argc, char const *argv[])
 	printf("Choose an option: \n");
 	printf("1} Encryption\n");
 	printf("2} Decryption\n");
-	printf("=> ");
-	//choice = getchar();
-	scanf("%d", &choice);
-
-	fflush(stdin);
-
-	char c;
-
-	#ifdef __linux__
-		while ( (c = getchar() ) != '\n');
-	#endif
-
-
-	switch(choice)
+	int flag=1;
+	while(flag)
 	{
-		case 1:
-			encrypt();
-			break;
+		printf("=> ");
+		//choice = getchar();
+		scanf("%d", &choice);
+		fflush(stdin);
 
-		case 2:
-			decrypt();
-			break;
+		char c;
 
-		default:
-			printf("Please choose an appropriate option!\n");
-	}	
+		#ifdef __linux__
+			while ( (c = getchar() ) != '\n');
+		#endif
 
+		int another_flag=1;
+		char ch;
+		while(another_flag)
+		{
+			printf("Do you want to see the process?(y/n): ");
+			scanf("%c", &ch);
+			fflush(stdin);
+
+			#ifdef __linux__
+				while ( (c = getchar() ) != '\n');
+			#endif
+
+			switch(ch)
+			{
+				case 'y':
+					show_process = 1;
+					printf("Okay, process of cipher will be shown\n\n");
+					another_flag = 0;
+					break;
+
+				case 'n':
+					show_process = 0;
+					printf("Okay, process will not be shown\n\n");
+					another_flag = 0;
+					break;
+
+				default:
+					printf("Please enter only y or n\n");
+			}
+		}
+
+		switch(choice)
+		{
+			case 1:
+				encrypt();
+				flag = 0;
+				break;
+
+			case 2:
+				decrypt();
+				flag = 0;
+				break;
+
+			default:
+				printf("Please choose an appropriate option!\n");
+		}	
+	}
 	return 0;
 }

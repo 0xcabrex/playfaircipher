@@ -3,14 +3,14 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//Does the cipher using 3 rules
+void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[], int show_process)		//Does the cipher using 3 rules
 {
 	int i, j, r1=0, r2=0, c1=0, c2=0;
 
 	memset(ciphered_text, 0, 100);	//Clears the ciphered_text array, it fills up with characters in some systems.
 
 	//=======================================================================
-	//	outer loop:- Cycling through the variables in steps(letters) of 2.
+	//	outer loop:- Cycling through the variables in steps(pairs) of 2.
 
 	for (int k=0; k<strlen(plain_text);k+=2)
 	{
@@ -46,11 +46,34 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//D
 			{
 				strncat(ciphered_text, &key_matrix[r1][c1+1], 1);
 				strncat(ciphered_text, &key_matrix[r2][0], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c1+1], r1,c1+1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][0], r2,0);
+				}
+			}
+			else if (c1==4)
+			{
+				strncat(ciphered_text, &key_matrix[r1][0], 1);
+				strncat(ciphered_text, &key_matrix[r2][c2+1], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][0], r1,0);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c2+1], r2,c2+1);
+				}
 			}
 			else
 			{
 				strncat(ciphered_text, &key_matrix[r1][c1+1], 1);
 				strncat(ciphered_text, &key_matrix[r2][c2+1], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c1+1], r1,c1+1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c2+1], r2,c2+1);
+				}
 			}
 		}
 		if (c1==c2)
@@ -59,11 +82,34 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//D
 			{
 				strncat(ciphered_text, &key_matrix[r1+1][c1], 1);
 				strncat(ciphered_text, &key_matrix[0][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1+1][c1], r1,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[0][c2], 0, c2);
+				}
+			}
+			else if (r1==4)
+			{
+				strncat(ciphered_text, &key_matrix[0][c1], 1);
+				strncat(ciphered_text, &key_matrix[r2+1][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[0][c1], 0,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2+1][c2], r2+1, c2);
+				}
 			}
 			else
 			{
 				strncat(ciphered_text, &key_matrix[r1+1][c1], 1);
 				strncat(ciphered_text, &key_matrix[r2+1][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1+1][c1], r1+1,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2+1][c2], r2+1,c2);
+				}
 			}
 		}
 
@@ -71,13 +117,19 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//D
 		{			
 			strncat(ciphered_text, &key_matrix[r1][c2], 1);
 			strncat(ciphered_text, &key_matrix[r2][c1], 1);
+
+			if (show_process)
+			{
+				printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c2], r1,c2);
+				printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c1], r2,c1);
+			}
 		}
 		//=======================================================================
 	}
 }
 
 
-void upside_down_worker(char plain_text[], char key_matrix[5][5], char ciphered_text[])		//unciphers using 3 rules
+void upside_down_worker(char plain_text[], char key_matrix[5][5], char ciphered_text[], int show_process)		//unciphers using 3 rules
 {
 	int i, j, r1=0, r2=0, c1=0, c2=0;
 
@@ -116,28 +168,74 @@ void upside_down_worker(char plain_text[], char key_matrix[5][5], char ciphered_
 
 		if (r1==r2)
 		{
-			if(c2==4)
+			if(c2==0)
 			{
 				strncat(ciphered_text, &key_matrix[r1][c1-1], 1);
 				strncat(ciphered_text, &key_matrix[r2][4], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c1-1], r1,c1-1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][4], r2, 4);
+				}
+			}
+			else if (c1==0)
+			{
+				strncat(ciphered_text, &key_matrix[r1][4], 1);
+				strncat(ciphered_text, &key_matrix[r2][c2-1], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][4], r1,4);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c2-1], r2, c2-1);
+				}
 			}
 			else
 			{
 				strncat(ciphered_text, &key_matrix[r1][c1-1], 1);
 				strncat(ciphered_text, &key_matrix[r2][c2-1], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c1-1], r1,c1-1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c2-1], r2, c2-1);
+				}
 			}
 		}
 		if (c1==c2)
 		{
-			if (r2==4)
+			if (r2==0)
 			{
 				strncat(ciphered_text, &key_matrix[r1-1][c1], 1);
 				strncat(ciphered_text, &key_matrix[4][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1-1][c1], r1-1,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[4][c2], 4, c2);
+				}
+			}
+			else if(r1==0)
+			{
+				strncat(ciphered_text, &key_matrix[4][c1], 1);
+				strncat(ciphered_text, &key_matrix[r2-1][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[4][c1], 4,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2-1][c2], r2-1, c2);
+				}
 			}
 			else
 			{
 				strncat(ciphered_text, &key_matrix[r1-1][c1], 1);
 				strncat(ciphered_text, &key_matrix[r2-1][c2], 1);
+
+				if (show_process)
+				{
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1-1][c1], r1-1,c1);
+					printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2-1][c2], r2-1, c2);
+				}
 			}
 		}
 
@@ -145,6 +243,12 @@ void upside_down_worker(char plain_text[], char key_matrix[5][5], char ciphered_
 		{			
 			strncat(ciphered_text, &key_matrix[r1][c2], 1);
 			strncat(ciphered_text, &key_matrix[r2][c1], 1);
+
+			if (show_process)
+			{
+				printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k], r1,c1, key_matrix[r1][c2], r1,c2);
+				printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c1], r2, c1);
+			}
 		}
 		//=======================================================================
 	}
