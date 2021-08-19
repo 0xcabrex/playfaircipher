@@ -32,17 +32,20 @@ void encrypt()
 	key_matrix_maker(key, key_matrix);				//Creates the matrix with the specified key
 
 	//=======================================================================
-	//	Printing the Key matrix after forming them	
+	//	Printing the Key matrix after forming them, if the process is 'y'
 	
-	printf("Key Matrix\n");
-
-	for (int i=0; i<5; i++)
+	if (show_process == 1)
 	{
-		for (int j=0; j<5; j++)
+		printf("Key Matrix\n");
+
+		for (int i=0; i<5; i++)
 		{
-			printf("%c  ", key_matrix[i][j]);
+			for (int j=0; j<5; j++)
+			{
+				printf("%c  ", key_matrix[i][j]);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 	
 	//=======================================================================
@@ -53,6 +56,10 @@ void encrypt()
 	printf("Enter plain Text: ");
 	scanf("%[^\n]s", plain_text);
 	fflush(stdin);
+
+	#ifdef __linux__
+		while ( (c = getchar()) != '\n');
+	#endif
 	//fgets(plain_text, 100, stdin);
 	
 	//=======================================================================
@@ -62,15 +69,18 @@ void encrypt()
 	//=======================================================================
 	//	Outputting the plain text in the required manner
 
-	printf("Modified plain Text: ");
-	for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
+	if (show_process == 1)
 	{
-		if (k%2 == 1)
-			printf("%c ", plain_text[k]);
-		else
-			printf("%c", plain_text[k]);
+		printf("Modified plain Text: ");
+		for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
+		{
+			if (k%2 == 1)
+				printf("%c ", plain_text[k]);
+			else
+				printf("%c", plain_text[k]);
+		}
+		printf("\n");
 	}
-	printf("\n");
 
 	//=======================================================================
 
@@ -82,8 +92,6 @@ void encrypt()
 
 void decrypt()
 {
-	//printf("Work under progress!\n");
-
 	//=======================================================================
 	//	Initializing variables
 
@@ -110,16 +118,19 @@ void decrypt()
 
 	//=======================================================================
 	//	Printing the Key matrix after forming them	
-	
-	printf("Key Matrix\n");
 
-	for (int i=0; i<5; i++)
+	if(show_process == 1)	
 	{
-		for (int j=0; j<5; j++)
+		printf("Key Matrix\n");
+
+		for (int i=0; i<5; i++)
 		{
-			printf("%c  ", key_matrix[i][j]);
+			for (int j=0; j<5; j++)
+			{
+				printf("%c  ", key_matrix[i][j]);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 	
 	//=======================================================================
@@ -139,15 +150,18 @@ void decrypt()
 	//=======================================================================
 	//	Outputting the plain text in the required manner
 
-	printf("Modified ciphered Text: ");
-	for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
+	if (show_process == 1)
 	{
-		if (k%2 == 1)
-			printf("%c ", plain_text[k]);
-		else
-			printf("%c", plain_text[k]);
+		printf("Modified ciphered Text: ");
+		for (int k=0; k<strlen(plain_text); k++)		//groups the plain texts
+		{
+			if (k%2 == 1)
+				printf("%c ", plain_text[k]);
+			else
+				printf("%c", plain_text[k]);
+		}
+		printf("\n");
 	}
-	printf("\n");
 
 	//=======================================================================
 
@@ -182,43 +196,77 @@ int main(int argc, char const *argv[])
 
 		int another_flag=1;
 		char ch;
-		while(another_flag)
-		{
-			printf("Do you want to see the process?(y/n): ");
-			scanf("%c", &ch);
-			fflush(stdin);
-
-			#ifdef __linux__
-				while ( (c = getchar() ) != '\n');
-			#endif
-
-			switch(ch)
-			{
-				case 'y':
-					show_process = 1;
-					printf("Okay, process of cipher will be shown\n\n");
-					another_flag = 0;
-					break;
-
-				case 'n':
-					show_process = 0;
-					printf("Okay, process will not be shown\n\n");
-					another_flag = 0;
-					break;
-
-				default:
-					printf("Please enter only y or n\n");
-			}
-		}
 
 		switch(choice)
 		{
 			case 1:
+
+				
+				while(another_flag)
+				{
+					printf("Do you want to see the process?(y/n): ");
+					scanf("%c", &ch);
+					fflush(stdin);
+
+					#ifdef __linux__
+						while ( (c = getchar() ) != '\n');
+					#endif
+
+					switch(ch)
+					{
+						case 'y':
+							show_process = 1;
+							printf("Okay, process of cipher will be shown\n\n");
+							another_flag = 0;
+							break;
+
+						case 'n':
+							show_process = 0;
+							printf("Okay, process will not be shown\n\n");
+							another_flag = 0;
+							break;
+
+						default:
+							printf("Please enter only y or n\n");
+					}
+				}
+
 				encrypt();
 				flag = 0;
 				break;
 
 			case 2:
+
+				
+				while(another_flag)
+				{
+					printf("Do you want to see the process?(y/n): ");
+					scanf("%c", &ch);
+					fflush(stdin);
+
+					#ifdef __linux__
+						while ( (c = getchar() ) != '\n');
+					#endif
+
+					switch(ch)
+					{
+						case 'y':
+							show_process = 1;
+							printf("Okay, process of cipher will be shown\n\n");
+							another_flag = 0;
+							break;
+
+						case 'n':
+							show_process = 0;
+							printf("Okay, process will not be shown\n\n");
+							another_flag = 0;
+							break;
+
+						default:
+							printf("Please enter only y or n\n");
+					}
+				}
+
 				decrypt();
 				flag = 0;
 				break;

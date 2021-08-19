@@ -37,8 +37,12 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[], int 
 		//=======================================================================
 
 
+
 		//=======================================================================
 		//	The 3 rules written here in "if" statements
+
+		if (show_process)
+			printf("\n");
 
 		if (r1==r2)
 		{
@@ -124,6 +128,9 @@ void worker(char plain_text[], char key_matrix[5][5], char ciphered_text[], int 
 				printf("%c => (%d, %d) ; %c => (%d, %d)\n", plain_text[k+1], r2,c2, key_matrix[r2][c1], r2,c1);
 			}
 		}
+
+		if (show_process)
+			printf("\n");
 		//=======================================================================
 	}
 }
@@ -268,8 +275,6 @@ void inducer(char plain_text[])		// Does the job of converting the plaintext int
 
 	//=======================================================================
 	//	This snippet is responsible for removing all spaces from the plain text
-
-	
 
 	int i1=0, j1=0;
 	while (plain_text[i1])
@@ -463,7 +468,6 @@ void key_matrix_maker(char key[100], char key_matrix[5][5])
         size = strlen(key);
     }
 
-    //printf("%s\n", key);
 
     //=======================================================================
 
@@ -472,24 +476,19 @@ void key_matrix_maker(char key[100], char key_matrix[5][5])
     k=0;
 
     //=======================================================================
-    //	This code snippet converts the D key array into the 2D key matrix
+    //	This code snippet converts the 1D key array into the 2D key matrix
 
     while(key[k])
     {
         if ((i+1)%5 ==0)
         {
             key_matrix[j][i] = key[k];
-            //printf("%c\n", key_matrix[j][i]);
-            //printf("[%d, %d]\n", j,i);
             j++;
             i = (i/5) - 1;
         }
         else
         {
-            
             key_matrix[j][i] = key[k];
-            //printf("%c  ", key_matrix[j][i]);
-            //printf("[%d, %d],", j,i);
         }
         
         k++;
